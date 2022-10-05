@@ -1,0 +1,25 @@
+{
+  "name": "fetch-rewards-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etsang647/fetch-rewards-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etsang647/fetch-rewards-backend/issues"
+  },
+  "homepage": "https://github.com/etsang647/fetch-rewards-backend#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
