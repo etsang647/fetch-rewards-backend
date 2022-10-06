@@ -1,3 +1,4 @@
+const helper = require('./helper')
 const express = require('express')
 const app = express()
 
@@ -12,23 +13,20 @@ app.get('/transactions', (req, res) => {
 
 app.post('/transactions', (req, res) => {
   const { payer, points, timestamp } = req.body
-  payers.add(payer)
-
   const newTransaction = {
     payer,
     points,
     timestamp
   }
   transactions = transactions.concat(newTransaction)
+  payers.add(payer)
   res.json(newTransaction)
 })
 
 app.get('/points', (req, res) => {
   const pointsBalance = {}
   payers.forEach((payer) => {
-    const payerTransactions = transactions.filter(txn => txn.payer === payer)
-    const payerPoints = payerTransactions.reduce((sum, txn) => sum + txn.points, 0)
-    pointsBalance[payer] = payerPoints
+    pointsBalance[payer] = helper.getPoints(payer, transactions)
   })
   res.json(pointsBalance)
 })
