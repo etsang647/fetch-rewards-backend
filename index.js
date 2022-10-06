@@ -1,4 +1,4 @@
-const helper = require('./helper')
+const points = require('./utils/points')
 const express = require('express')
 const app = express()
 
@@ -23,10 +23,20 @@ app.post('/transactions', (req, res) => {
   res.json(newTransaction)
 })
 
+app.post('/spend', (req, res) => {
+  const { points } = req.body
+  const totalPoints = points.getTotalPoints(transactions)
+  if (points > totalPoints) {
+    return res.status(400).json({ error: `not enough points: have ${totalPoints} need ${points}`})
+  } else {
+    return res.status(200).json(`okay, spending ${points} points`)
+  }
+})
+
 app.get('/points', (req, res) => {
   const pointsBalance = {}
   payers.forEach((payer) => {
-    pointsBalance[payer] = helper.getPoints(payer, transactions)
+    pointsBalance[payer] = points.getPoints(payer, transactions)
   })
   res.json(pointsBalance)
 })
