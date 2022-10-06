@@ -29,7 +29,7 @@ Accepts requests with body of type:
 }
 ```
 
-Creates a new transaction that is saved locally and returns the new transaction as JSON.
+Creates a new transaction that is saved locally and returns the new transaction as JSON. Whether or not the transactions come in order of timestamp does not matter.
 
 Example response:
 ```json
@@ -60,6 +60,20 @@ Example response:
   { "payer": "UNILEVER", "points": -200 },
   { "payer": "MILLER COORS", "points": -4700 }
 ]
+```
+
+If it is not possible to spend the requested number of points for any reason, i.e.
+
+- we are spending more points than we have,
+- or at any point in time a payer's balance becomes negative
+
+the server will respond with HTTP 400 Bad Request and an error message in JSON.
+
+Example error response:
+```json
+{
+  "error": "payer balance negative"
+}
 ```
 
 ### GET /points
