@@ -1,49 +1,36 @@
-/**
- * points helper functions (general)
- */
+const {
+  getTransactions,
+  getPosTransactionsBeforeDate,
+} = require('./transactions')
 
+// return sum of all points in <transactions>
 const sumPoints = (transactions) => {
   const sumPoints = transactions.reduce((sum, txn) => sum + txn.points, 0)
   return sumPoints
 }
 
+// same as sumPoints above but with a nicer name for exporting
 const getTotalPoints = (transactions) => {
   const totalPoints = sumPoints(transactions)
   return totalPoints
 }
 
-/**
- * points helper functions (payer-specific)
- */
-
-const getPayerTransactions = (payer, transactions) => {
-  const payerTransactions = transactions.filter(txn => txn.payer === payer)
-  return payerTransactions
-}
-
+// returns total points for the given <payer> in <transactions>
 const getPoints = (payer, transactions) => {
-  const payerTransactions = getPayerTransactions(payer, transactions)
+  const payerTransactions = getTransactions(payer, transactions)
   const payerPoints = sumPoints(payerTransactions)
   return payerPoints
 }
 
-const getPositivePoints = (payer, transactions) => {
-  const payerTransactions = getPayerTransactions(payer, transactions)
-  const posPayerTransactions = payerTransactions.filter(txn => txn.points > 0)
-  const posPayerPoints = sumPoints(posPayerTransactions)
-  return posPayerPoints
-}
-
-const getNegativePoints = (payer, transactions) => {
-  const payerTransactions = getPayerTransactions(payer, transactions)
-  const negPayerTransactions = payerTransactions.filter(txn => txn.points < 0)
-  const negPayerPoints = sumPoints(negPayerTransactions)
-  return negPayerPoints
+// returns total points from positive transactions for the given <payer> in <transactions> before <timestamp> date
+const getPosPointsBeforeDate = (payer, transactions, timestamp) => {
+  const posTransactions = getPosTransactionsBeforeDate(payer, transactions, timestamp)
+  const posPoints = sumPoints(posTransactions)
+  return posPoints
 }
 
 module.exports = {
   getTotalPoints,
   getPoints,
-  getPositivePoints,
-  getNegativePoints
+  getPosPointsBeforeDate,
 }
