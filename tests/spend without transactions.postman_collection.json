@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "3b0e35eb-18b8-4dae-87d8-b2cc6de12e38",
+		"name": "spend without transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23465021"
+	},
+	"item": [
+		{
+			"name": "spend 1000",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"points\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/spend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"spend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get points balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/points",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"points"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
